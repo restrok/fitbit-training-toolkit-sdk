@@ -1,0 +1,31 @@
+[project]
+name = "fitbit-training-toolkit-sdk"
+version = "0.1.0"
+description = "Fitbit Biometric & Training Telemetry Python SDK (OAuth2 PKCE, Intraday HR, HRV, Sleep Stages)"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Biometric Platform Team" }
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Medical Science Apps."
+]
+dependencies = [
+    "pydantic>=2.0.0",
+    "httpx>=0.25.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
