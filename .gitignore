@@ -1,10 +1,27 @@
-# Python-generated files
+# Byte-compiled / optimized
 __pycache__/
-*.py[oc]
+*.py[cod]
+*.class
+
+# Distribution / packaging
 build/
 dist/
 wheels/
-*.egg-info
+*.egg-info/
 
 # Virtual environments
-.venv
+.venv/
+venv/
+
+# Testing & Linting
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+
+# Sensitive local tokens & environment
+*.token
+*.tokens
+*token*.json
+.env
+.env.*
