@@ -1,11 +1,15 @@
-"""Mock provider for testing without Fitbit credentials."""
+"""Mock provider for testing without live Fitbit credentials.
+
+Returns deterministic data structured according to official Fitbit API schemas.
+"""
 
 from datetime import UTC, date, datetime
+from typing import Any
 
 from ..core.base import BaseBiometricProvider
 from ..protocol.activities import Activity, HRZoneTime
 from ..protocol.biometrics import DailyPhysiology, HRVData, SleepData
-from ..protocol.telemetry import ActivityTelemetry
+from ..protocol.telemetry import ActivityTelemetry, TelemetryPoint
 from ..protocol.user import UserProfile
 
 
@@ -20,7 +24,7 @@ class MockFitbitProvider(BaseBiometricProvider):
                 type="running",
                 date=datetime(2026, 9, 8, 7, 30, 0, tzinfo=UTC),
                 duration_sec=2700.0,
-                distance_meters=6000.0,
+                distance_m=6000.0,
                 avg_hr=148.0,
                 calories=420.0,
                 hr_zones=[
@@ -32,7 +36,13 @@ class MockFitbitProvider(BaseBiometricProvider):
         ]
 
     def get_telemetry(self, activity_id: str) -> ActivityTelemetry:
-        return ActivityTelemetry(activity_id=activity_id, points=[])
+        return ActivityTelemetry(
+            activity_id=activity_id,
+            points=[
+                TelemetryPoint(timestamp=datetime(2026, 9, 8, 7, 30, 0, tzinfo=UTC), heart_rate=135, elevation=25.0),
+                TelemetryPoint(timestamp=datetime(2026, 9, 8, 7, 31, 0, tzinfo=UTC), heart_rate=145, elevation=26.0),
+            ],
+        )
 
     def get_sleep_history(self, start_date: date, end_date: date) -> list[SleepData]:
         return [
@@ -54,6 +64,14 @@ class MockFitbitProvider(BaseBiometricProvider):
                 last_night_avg=64.5,
                 status="BALANCED",
             )
+        ]
+
+    def get_cardio_score(self, start_date: date, end_date: date | None = None) -> list[dict[str, Any]]:
+        return [
+            {
+                "dateTime": "2026-09-08",
+                "value": {"vo2Max": "48"},
+            }
         ]
 
     def get_user_profile(self) -> UserProfile | None:
