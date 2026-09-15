@@ -43,6 +43,11 @@ class TokenManager:
             with open(self.token_path, "w") as f:
                 json.dump(self._tokens, f, indent=2)
 
+    @property
+    def tokens(self) -> dict[str, Any]:
+        """Returns the internal tokens dictionary."""
+        return self._tokens
+
     def get_valid_access_token(self) -> str:
         """Returns a valid access token, proactively refreshing if within 60s of expiration."""
         if not self._tokens:

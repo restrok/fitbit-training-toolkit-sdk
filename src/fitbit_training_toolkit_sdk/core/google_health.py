@@ -176,7 +176,7 @@ class GoogleHealthProvider(BaseBiometricProvider):
                     data = resp.json()
                     return UserProfile(
                         user_id=data.get("id", "google_user"),
-                        display_name=data.get("name", "Google Athlete"),
+                        full_name=data.get("name", "Google Athlete"),
                         gender=data.get("gender"),
                     )
         except (httpx.HTTPError, KeyError, ValueError, TypeError) as e:
