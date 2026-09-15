@@ -83,7 +83,7 @@ class FitbitProvider(BaseBiometricProvider):
         Spec: /1/user/-/activities/list.json
         """
         url = f"{FITBIT_API_BASE}/1/user/-/activities/list.json"
-        params = {
+        params: dict[str, Any] = {
             "afterDate": start_date.isoformat(),
             "sort": "asc",
             "limit": 100,
@@ -102,7 +102,7 @@ class FitbitProvider(BaseBiometricProvider):
         Spec: /1/user/-/activities/[log-id].tcx
         """
         url = f"{FITBIT_API_BASE}/1/user/-/activities/{activity_id}.tcx"
-        params = {"includePartialTCX": str(include_partial).lower()}
+        params: dict[str, Any] = {"includePartialTCX": str(include_partial).lower()}
         headers = self._headers(accept="application/vnd.garmin.tcx+xml")
         resp = httpx.get(url, headers=headers, params=params)
         self._track_rate_limits(resp)
